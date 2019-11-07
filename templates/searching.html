@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Data Structures &amp Algorithms</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="/">Data Structures &amp Algorithms: Mwaka Ambrose</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/data-structures">Data Structures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sorting">Sorting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/searching">Searching</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ai">A.I</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Content -->
+<!-- start site's main content area -->
+<section class="content-wrap mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- start main post area -->
+                <div class="col-md-8 main-content">
+                    <!-- start post -->
+                    <article id="5d2e2f5a2ad4a010f9ee628c" class="post tag-python tag-algorithms">
+                        <div class="post-head">
+                            <h2 class="post-title">Search Algorithms in Python</h2>
+                        </div>
+                        <div class="post-ad">
+                            <!-- 728x90/320x50 -->
+    <div id="waldo-tag-3878"></div>                    </div>
+                        <div class="post-content">
+                            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><h3 id="introduction">Introduction</h3>
+    <p>Searching for data stored in different data structures is a crucial part of pretty much every single application.</p>
+    <p>There are many different algorithms available to utilize when searching, and each have different implementations and rely on different data structures to get the job done.</p>
+    <p>Being able to choose a specific algorithm for a given task is a key skill for developers and can mean the difference between a fast, reliable and stable application and an application that crumbles from a simple request.</p>
+    <ul>
+    <li><a href="#membershipoperators">Membership Operators</a></li>
+    <li><a href="#linearsearch">Linear Search</a></li>
+    <li><a href="#binarysearch">Binary Search</a></li>
+    <li><a href="#jumpsearch">Jump Search</a></li>
+    <li><a href="#fibonaccisearch">Fibonacci Search</a></li>
+    <li><a href="#exponentialsearch">Exponential Search</a></li>
+    <li><a href="#interpolationsearch">Interpolation Search</a></li>
+    </ul>
+    <h3 id="membershipoperators">Membership Operators</h3>
+    <p>Algorithms develop and become optimized over time as a result of constant evolution and the need to find the most efficient solutions for underlying problems in different domains.</p>
+    <p>One of the most common problems in the domain of Computer Science is searching through a collection and determining whether a given object is present in the collection or not.</p>
+    <p>Almost every programming language has its own implementation of a basic search algorithm, usually as a function which returns a <code>Boolean</code> value of <code>True</code> or <code>False</code> when an item is found in a given collection of items.</p>
+    <p>In Python, the easiest way to search for an object is to use <a rel="nofollow" target="_blank" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">Membership Operators</a> - named that way because they allow us to determine whether a given object is a member in a collection.</p>
+    <p>These operators can be used with any iterable data structure in Python, including Strings, Lists, and Tuples.</p>
+    <ul>
+    <li><code>in</code> - Returns <code>True</code> if the given element is a part of the structure.</li>
+    <li><code>not in</code> - Returns <code>True</code> if the given element is not a part of the structure.</li>
+    </ul>
+    <pre class="code">
+    &gt;&gt;&gt; 'apple' in ['orange', 'apple', 'grape']
+    True
+    &gt;&gt;&gt; 't' in 'stackabuse'
+    True
+    &gt;&gt;&gt; 'q' in 'stackabuse'
+    False
+    &gt;&gt;&gt; 'q' not in 'stackabuse'
+    True
+    </pre>
+    <p>Membership operators suffice when all we need to do is find whether a substring exists within a given string, or determine whether two Strings, Lists, or Tuples intersect in terms of the objects they hold.</p>
+    <p>In most cases we need the position of the item in the sequence, in addition to determining whether or not it exists; membership operators do not meet this requirement.</p>
+    <p>There are many search algorithms that don't depend on built-in operators and can be used to search for values faster and/or more efficiently. In addition, they can yield more information, such as the position of the element in the collection, rather than just being able to determine its existence.</p>
+    <h3 id="linearsearch">Linear Search</h3>
+    <p><em>Linear search</em> is one of the simplest searching algorithms, and the easiest to understand. We can think of it as a ramped-up version of our own implementation of Python's <code>in</code> operator.</p>
+    <p>The algorithm consists of iterating over an array and returning the index of the first occurrence of an item once it is found:</p>
+    <pre class="code">def LinearSearch(lys, element):
+        for i in range (len(lys)):
+            if lys[i] == element:
+                return i
+        return -1
+    </pre>
+    <p>So if we use the function to compute:</p>
+    <pre class="code">
+        &gt;&gt;&gt; print(LinearSearch([1,2,3,4,5,2,1], 2))
+    </pre>
+    <p>Upon executing the code, we're greeted with:</p>
+    <pre class="code">1
+    </pre>
+    <p>This is the index of the first occurrence of the item we are searching for - keeping in mind that Python indexes are 0-based.</p>
+    <p>The time complexity of linear search is <em>O(n)</em>, meaning that the time taken to execute increases with the number of items in our input list <code>lys</code>.</p>
+    <p>Linear search is not often used in practice, because the same efficiency can be achieved by using inbuilt methods or existing operators, and it is not as fast or efficient as other search algorithms.</p>
+    <p>Linear search is a good fit for when we need to find the first occurrence of an item in an unsorted collection because unlike most other search algorithms, it does not require that a collection be sorted before searching begins.</p>
+    <h3 id="binarysearch">Binary Search</h3>
+    <p><em>Binary search</em> follows a <a rel="nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm">divide and conquer</a> methodology. It is faster than linear search but requires that the array be sorted before the algorithm is executed.</p>
+    <p>Assuming that we're searching for a value <code>val</code> in a sorted array, the algorithm compares <code>val</code> to the value of the middle element of the array, which we'll call <code>mid</code>.</p>
+    <ul>
+    <li>If <code>mid</code> is the element we are looking for (best case), we return its index.</li>
+    <li>If not, we identify which side of <code>mid</code> <code>val</code> is more likely to be on based on whether <code>val</code> is smaller or greater than <code>mid</code>, and discard the other side of the array.</li>
+    <li>We then recursively or iteratively follow the same steps, choosing a new value for <code>mid</code>, comparing it with <code>val</code> and discarding half of the possible matches in each iteration of the algorithm.</li>
+    </ul>
+    <p>The binary search algorithm can be written either recursively or iteratively. <a rel="nofollow" target="_blank" href="https://stackoverflow.com/questions/2651112/is-recursion-ever-faster-than-looping/2651200#2651200">Recursion is generally slower in Python</a> because it requires the allocation of new stack frames.</p>
+    <p>Since a good search algorithm should be as fast and accurate as possible, let's consider the iterative implementation of binary search:</p>
+    <pre class="code">def BinarySearch(lys, val):
+        first = 0
+        last = len(lys)-1
+        index = -1
+        while (first &lt;= last) and (index == -1):
+            mid = (first+last)//2
+            if lys[mid] == val:
+                index = mid
+            else:
+                if val&lt;lys[mid]:
+                    last = mid -1
+                else:
+                    first = mid +1
+        return index
+    </pre>
+    <p>If we use the function to compute:</p>
+    <pre class="code">&gt;&gt;&gt; BinarySearch([10,20,30,40,50], 20)
+    </pre>
+    <p>We get the result:</p>
+    <pre class="code">
+        1
+    </pre>
+    <p>Which is the index of the value that we are searching for.</p>
+    <p>The action that the algorithm performs next in each iteration is one of several possibilities:</p>
+    <ul>
+    <li>Returning the index of the current element</li>
+    <li>Searching through the left half of the array</li>
+    <li>Searching through the right half of the array</li>
+    </ul>
+    <p>We can only pick one possibility per iteration, and our pool of possible matches gets divided by two in each iteration. This makes the time complexity of binary search <em>O(log n)</em>.</p>
+    <p>One drawback of binary search is that if there are multiple occurrences of an element in the array, it does not return the index of the first element, but rather the index of the element closest to the middle:</p>
+    <pre class="code">&gt;&gt;&gt; print(BinarySearch([4,4,4,4,4], 4))
+    </pre>
+    <p>Running this piece of code will result in the index of the middle element:</p>
+    <pre>
+        1
+    </pre>
+    <p>For comparison performing a linear search on the same array would return:</p>
+    <pre>
+        0
+    </pre>
+    <p>Which is the index of the <em>first</em> element. However, we cannot categorically say that binary search does not work if an array contains the same element twice - it can work just like linear search and return the first occurrence of the element in some cases.</p>
+    <p>If we perform binary search on the array <code>[1,2,3,4,4,5]</code> for instance, and search for 4, we would get <code>3</code> as the result.</p>
+    <p>Binary search is quite commonly used in practice because it is efficient and fast when compared to linear search. However, it does have some shortcomings, such as its reliance on the <code>//</code> operator. There are many other <em>divide and conquer</em> search algorithms that are derived from binary search, let's examine a few of those next.</p>
+    <h3 id="jumpsearch">Jump Search</h3>
+    <p><em>Jump Search</em> is similar to binary search in that it works on a sorted array, and uses a similar <em>divide and conquer</em> approach to search through it.</p>
+    <p>It can be classified as an improvement of the linear search algorithm since it depends on linear search to perform the actual comparison when searching for a value.</p>
+    <p>Given a sorted array, instead of searching through the array elements incrementally, we search in <em>jumps</em>. So in our input list <code>lys</code>, if we have a jump size of <em>jump</em> our algorithm will consider elements in the order <code>lys[0]</code>, <code>lys[0+jump]</code>, <code>lys[0+2jump]</code>, <code>lys[0+3jump]</code> and so on.</p>
+    <p>With each jump, we store the previous value we looked at and its index. When we find a set of values where <code>lys[i]</code>&lt;element&lt;<code>lys[i+jump]</code>, we perform a linear search with <code>lys[i]</code> as the left-most element and <code>lys[i+jump]</code> as the right-most element in our search set:</p>
+    <pre class="code">import math
+    
+    def JumpSearch (lys, val):
+        length = len(lys)
+        jump = int(math.sqrt(length))
+        left, right = 0, 0
+        while left &lt; length and lys[left] &lt;= val:
+            right = min(length - 1, left + jump)
+            if lys[left] &lt;= val and lys[right] &gt;= val:
+                break
+            left += jump;
+        if left &gt;= length or lys[left] &gt; val:
+            return -1
+        right = min(length - 1, right)
+        i = left
+        while i &lt;= right and lys[i] &lt;= val:
+            if lys[i] == val:
+                return i
+            i += 1
+        return -1
+    </pre>
+    <p>Since this is a complex algorithm, let's consider the step-by-step computation of jump search with this input:</p>
+    <pre class="code">&gt;&gt;&gt; print(JumpSearch([1,2,3,4,5,6,7,8,9], 5))
+    </pre>
+    <ul>
+    <li>Jump search would first determine the jump size by computing <code>math.sqrt(len(lys))</code>. Since we have 9 elements, the jump size would be √9 = 3.</li>
+    <li>Next, we compute the value of the <code>right</code> variable, which is the minimum of the length of the array minus 1, or the value of <code>left+jump</code>, which in our case would be 0+3= 3. Since 3 is smaller than 8 we use 3 as the value of <code>right</code>.</li>
+    <li>Now we check whether our search element, 5, is between <code>lys[0]</code> and <code>lys[3]</code>. Since 5 is not between 1 and 4, we move on.</li>
+    <li>Next, we do the calculations again and check whether our search element is between <code>lys[3]</code> and <code>lys[6]</code>, where 6 is 3+jump. Since 5 is between 4 and 7, we do a linear search on the elements between <code>lys[3]</code> and <code>lys[6]</code> and return the index of our element as:</li>
+    </ul>
+    <pre>
+        4
+    </pre>
+    <p>The time complexity of jump search is <em>O(√n)</em>, where <em>√n</em> is the jump size, and <em>n</em> is the length of the list, placing jump search between the linear search and binary search algorithms in terms of efficiency.</p>
+    <p>The single most important advantage of jump search when compared to binary search is that it does not rely on the division operator (<code>/</code>).</p>
+    <p>In most CPUs, <a rel="nofollow" target="_blank" href="http://ithare.com/wp-content/uploads/part101_infographics_v08.png">using the division operator is costly when compared to other basic arithmetic operations</a> (addition, subtraction, and multiplication), because the implementation of the division algorithm is iterative.</p>
+    <p>The cost by itself is very small, but when the number of elements to search through is very large, and the number of division operations that we need to perform increases, the cost can add up incrementally. Therefore jump search is better than binary search when there is a large number of elements in a system where even a small increase in speed matters.</p>
+    <p>To make jump search faster, we could use binary search or another internal jump search to search through the blocks, instead of relying on the much slower linear search.</p>
+    <h3 id="fibonaccisearch">Fibonacci Search</h3>
+    <p><em>Fibonacci search</em> is another divide and conquer algorithm which bears similarities to both binary search and jump search. It gets its name because it uses <a rel="nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers</a> to calculate the block size or search range in each step.</p>
+    <p>Fibonacci numbers start with zero and follow the pattern <em>0, 1, 1, 2, 3, 5, 8, 13, 21...</em> where each element is the addition of the two numbers that immediately precede it.</p>
+    <p>The algorithm works with three Fibonacci numbers at a time. Let's call the three numbers <code>fibM</code>, <code>fibM_minus_1</code>, and <code>fibM_minus_2</code> where <code>fibM_minus_1</code> and <code>fibM_minus_2</code> are the two numbers immediately before <code>fibM</code> in the sequence:</p>
+    <pre class="code">fibM = fibM_minus_1 + fibM_minus_2
+    </pre>
+    <p>We initialize the values to 0,1, and 1 or the first three numbers in the Fibonacci sequence to avoid getting an <a rel="nofollow" target="_blank" href="https://docs.python.org/3/library/exceptions.html#IndexError">index error</a> in the case where our search array <code>lys</code> contains a very small number of items.</p>
+    <p>Then we choose the smallest number of the Fibonacci sequence that is greater than or equal to the number of elements in our search array <code>lys</code>, as the value of <code>fibM</code>, and the two Fibonacci numbers immediately before it as the values of <code>fibM_minus_1</code> and <code>fibM_minus_2</code>. While the array has elements remaining and the value of <code>fibM</code> is greater than one, we:</p>
+    <ul>
+    <li>Compare <code>val</code> with the value of the block in the range up to <code>fibM_minus_2</code>, and return the index of the element if it matches.</li>
+    <li>If the value is greater than the element we are currently looking at, we move the values of <code>fibM</code>, <code>fibM_minus_1</code> and <code>fibM_minus_2</code> two steps down in the Fibonacci sequence, and reset the index to the index of the element.</li>
+    <li>If the value is less than the element we are currently looking at, we move the values of <code>fibM</code>, <code>fibM_minus_1</code> and <code>fibM_minus_2</code> one step down in the Fibonacci sequence.</li>
+    </ul>
+    <p>Let's take a look at the Python implementation of this algorithm:</p>
+    <pre class="code">def FibonacciSearch(lys, val):
+        fibM_minus_2 = 0
+        fibM_minus_1 = 1
+        fibM = fibM_minus_1 + fibM_minus_2
+        while (fibM &lt; len(lys)):
+            fibM_minus_2 = fibM_minus_1
+            fibM_minus_1 = fibM
+            fibM = fibM_minus_1 + fibM_minus_2
+        index = -1;
+        while (fibM &gt; 1):
+            i = min(index + fibM_minus_2, (len(lys)-1))
+            if (lys[i] &lt; val):
+                fibM = fibM_minus_1
+                fibM_minus_1 = fibM_minus_2
+                fibM_minus_2 = fibM - fibM_minus_1
+                index = i
+            elif (lys[i] &gt; val):
+                fibM = fibM_minus_2
+                fibM_minus_1 = fibM_minus_1 - fibM_minus_2
+                fibM_minus_2 = fibM - fibM_minus_1
+            else :
+                return i
+        if(fibM_minus_1 and index &lt; (len(lys)-1) and lys[index+1] == val):
+            return index+1;
+        return -1
+    </pre>
+    <p>If we use the FibonacciSearch function to compute:</p>
+    <pre class="code">&gt;&gt;&gt; print(FibonacciSearch([1,2,3,4,5,6,7,8,9,10,11], 6))
+    </pre>
+    <p>Let's take a look at the step-by-step process of this search:</p>
+    <ul>
+    <li>Determining the smallest Fibonacci number greater than or equal to the length of the list as <code>fibM</code>; in this case, the smallest Fibonacci number meeting our requirements is 13.</li>
+    <li>The values would be assigned as:
+    <ul>
+    <li>fibM = 13</li>
+    <li>fibM_minus_1 = 8</li>
+    <li>fibM_minus_2 = 5</li>
+    <li>index = -1</li>
+    </ul>
+    </li>
+    <li>Next, we check the element <code>lys[4]</code> where 4 is the minimum of -1+5 . Since the value of <code>lys[4]</code> is 5, which is smaller than the value we are searching for, we move the Fibonacci numbers <em>one</em> step down in the sequence, making the values:
+    <ul>
+    <li>fibM = 8</li>
+    <li>fibM_minus_1 = 5</li>
+    <li>fibM_minus_2 = 3</li>
+    <li>index = 4</li>
+    </ul>
+    </li>
+    <li>Next, we check the element <code>lys[7]</code> where 7 is the minimum of 4+3. Since the value of <code>lys[7]</code> is 8, which is greater than the value we are searching for, we move the Fibonacci numbers <em>two</em> steps down in the sequence.
+    <ul>
+    <li>fibM = 3</li>
+    <li>fibM_minus_1 = 2</li>
+    <li>fibM_minus_2 = 1</li>
+    <li>index = 4</li>
+    </ul>
+    </li>
+    <li>Now we check the element <code>lys[5]</code> where 5 is the minimum of 4+1 . The value of <code>lys[5]</code> is 6, which <em>is</em> the value we are searching for!</li>
+    </ul>
+    <p>The result, as expected is:</p>
+    <pre>
+        5
+    </pre>
+    <p>The time complexity for Fibonacci search is <em>O(log n)</em>; the same as binary search. This means the algorithm is faster than both linear search and jump search in most cases.</p>
+    <p>Fibonacci search can be used when we have a very large number of elements to search through, and we want to reduce the inefficiency associated with using an algorithm which relies on the division operator.</p>
+    <p>An additional advantage of using Fibonacci search is that it can accommodate input arrays that are too large to be held in CPU cache or RAM, because it searches through elements in increasing step sizes, and not in a fixed size.</p>
+    <h3 id="exponentialsearch">Exponential Search</h3>
+    <p><em>Exponential search</em> is another search algorithm that can be implemented quite simply in Python, compared to jump search and Fibonacci search which are both a bit complex. It is also known by the names <em>galloping search</em>, <em>doubling search</em> and <em>Struzik search</em>.</p>
+    <p>Exponential search depends on binary search to perform the final comparison of values. The algorithm works by:</p>
+    <ul>
+    <li>Determining the range where the element we're looking for is likely to be</li>
+    <li>Using binary search for the range to find the exact index of the item</li>
+    </ul>
+    <p>The Python implementation of the exponential search algorithm is:</p>
+    <pre class="code">def ExponentialSearch(lys, val):
+        if lys[0] == val:
+            return 0
+        index = 1
+        while index &lt; len(lys) and lys[index] &lt;= val:
+            index = index * 2
+        return BinarySearch( arr[:min(index, len(lys))], val)
+    </pre>
+    <p>If we use the function to find the value of:</p>
+    <pre class="code">&gt;&gt;&gt; print(ExponentialSearch([1,2,3,4,5,6,7,8],3))
+    </pre>
+    <p>The algorithm works by:</p>
+    <ul>
+    <li>Checking whether the first element in the list matches the value we are searching for - since <code>lys[0]</code> is 1 and we are searching for 3, we set the index to 1 and move on.</li>
+    <li>Going through all the elements in the list, and while the item at the index'th position is less than or equal to our value, exponentially increasing the value of <code>index</code> in multiples of two:
+    <ul>
+    <li>index = 1, <code>lys[1]</code> is 2, which is less than 3, so the index is multiplied by 2 and set to 2.</li>
+    <li>index = 2, <code>lys[2]</code>is 3, which is equal to 3, so the index is multiplied by 2 and set to 4.</li>
+    <li>index = 4, <code>lys[4]</code> is 5, which is greater than 3; the loop is broken at this point.</li>
+    </ul>
+    </li>
+    <li>It then performs a binary search by <a rel="nofollow" target="_blank" href="https://docs.python.org/2.3/whatsnew/section-slices.html">slicing</a> the list; <code>arr[:4]</code>. In Python, this means that the sub list will contain all elements up to the 4th element, so we're actually calling:</li>
+    </ul>
+    <pre class="code">&gt;&gt;&gt; BinarySearch([1,2,3,4], 3)
+    </pre>
+    <p>which would return:</p>
+    <pre>
+        2
+    </pre>
+    <p>Which is the index of the element we are searching for in both the original list, and the sliced list that we pass on to the binary search algorithm.</p>
+    <p>Exponential search runs in <em>O(log i)</em> time, where <em>i</em> is the index of the item we are searching for. In its worst case, the time complexity is <em>O(log n)</em>, when the last item is the item we are searching for (<em>n</em> being the length of the array).</p>
+    <p>Exponential search works better than binary search when the element we are searching for is closer to the beginning of the array. In practice, we use exponential search because it is one of the most efficient search algorithms for <a rel="nofollow" target="_blank" href="https://stackoverflow.com/questions/21510201/what-is-an-unbounded-array">unbounded or infinite arrays</a>.</p>
+    <h3 id="interpolationsearch">Interpolation Search</h3>
+    <p><em>Interpolation search</em> is another divide and conquer algorithm, similar to binary search. Unlike binary search, it does not always begin searching at the middle. Interpolation search calculates the probable position of the element we are searching for using the formula:</p>
+    <pre class="code">index = low + [(val-lys[low])*(high-low) / (lys[high]-lys[low])]
+    </pre>
+    <p>Where the variables are:</p>
+    <ul>
+    <li>lys - our input array</li>
+    <li>val - the element we are searching for</li>
+    <li>index - the probable index of the search element. This is computed to be a higher value when val is closer in value to the element at the end of the array (<code>lys[high]</code>), and lower when val is closer in value to the element at the start of the array (<code>lys[low]</code>)</li>
+    <li>low - the starting index of the array</li>
+    <li>high - the last index of the array</li>
+    </ul>
+    <p>The algorithm searches by calculating the value of <code>index</code>:</p>
+    <ul>
+    <li>If a match is found (when <code>lys[index] == val</code>), the index is returned</li>
+    <li>If the value of <code>val</code> is less than <code>lys[index]</code>, the value for the index is re-calculated using the formula for the left sub-array</li>
+    <li>If the value of <code>val</code> is greater than <code>lys[index]</code>, the value for the index is re-calculated using the formula for the right sub-array</li>
+    </ul>
+    <p>Let's go ahead and implement the Interpolation search using Python:</p>
+    <pre class="code">def InterpolationSearch(lys, val):
+        low = 0
+        high = (len(lys) - 1)
+        while low &lt;= high and val &gt;= lys[low] and val &lt;= lys[high]:
+            index = low + int(((float(high - low) / ( lys[high] - lys[low])) * ( val - lys[low])))
+            if lys[index] == val:
+                return index
+            if lys[index] &lt; val:
+                low = index + 1;
+            else:
+                high = index - 1;
+        return -1
+    </pre>
+    <p>If we use the function to compute:</p>
+    <pre class="code">&gt;&gt;&gt; print(InterpolationSearch([1,2,3,4,5,6,7,8], 6))
+    </pre>
+    <p>Our initial values would be:</p>
+    <ul>
+    <li>val = 6,</li>
+    <li>low = 0,</li>
+    <li>high = 7,</li>
+    <li>lys[low] = 1,</li>
+    <li>lys[high] = 8,</li>
+    <li>index = 0 + [(6-1)*(7-0)/(8-1)] = 5</li>
+    </ul>
+    <p>Since <code>lys[5]</code> is 6, which is the value we are searching for, we stop executing and return the result:</p>
+    <pre>
+        5
+    </pre>
+    <p>If we have a large number of elements, and our index cannot be computed in one iteration, we keep on re-calculating values for <em>index</em> after adjusting the values of <em>high</em> and <em>low</em> in our formula.</p>
+    <p>The time complexity of interpolation search is <em>O(log log n)</em> when values are uniformly distributed. If values are not uniformly distributed, the worst-case time complexity is <em>O(n)</em>, the same as linear search.</p>
+    <p>Interpolation search works best on uniformly distributed, sorted arrays. Whereas binary search starts in the middle and always divides into two, interpolation search calculates the likely position of the element and checks the index, making it more likely to find the element in a smaller number of iterations.</p>
+    <h3 id="whyusepythonforsearching">Why Use Python For Searching?</h3>
+    <p>Python is highly readable and efficient when compared to older programming languages like Java, Fortran, C, C++ etc. One key advantage of using Python for implementing search algorithms is that you don't have to worry about casting or explicit typing.</p>
+    <p>In Python, most of the search algorithms we discussed will work just as well if we're searching for a String. Keep in mind that we do have to make changes to the code for algorithms which use the search element for numeric calculations, like the interpolation search algorithm.</p>
+    <p>Python is also a good place to start if you want to compare the performance of different search algorithms for your dataset; building a prototype in Python is easier and faster because you can do more with fewer lines of code.</p>
+    <p>To compare the performance of our implemented search algorithms against a dataset, we can use the <a rel="nofollow" target="_blank" href="https://docs.python.org/3/library/time.html">time library</a> in Python:</p>
+    <pre class="code">import time
+    
+    start = time.time()
+    # call the function here
+    end = time.time()
+    print(start-end)
+    </pre>
+    <h3 id="conclusion">Conclusion</h3>
+    <p>There are many possible ways to search for an element within a collection. In this article, we attempted to discuss a few search algorithms and their implementations in Python.</p>
+    <p>Choosing which algorithm to use is based on the data you have to search through; your input array, which we've called <code>lys</code> in all our implementations.</p>
+    <ul>
+    <li>If you want to search through an unsorted array or to find the <em>first</em> occurrence of a search variable, the best option is linear search.</li>
+    <li>If you want to search through a sorted array, there are many options of which the simplest and fastest method is binary search.</li>
+    <li>If you have a sorted array that you want to search through without using the division operator, you can use either jump search or Fibonacci search.</li>
+    <li>If you know that the element you're searching for is likely to be closer to the start of the array, you can use exponential search.</li>
+    <li>If your sorted array is also uniformly distributed, the fastest and most efficient search algorithm to use would be interpolation search.</li>
+    </ul>
+    <p class="mb-5">If you're not sure which algorithm to use with a sorted array, just try each of them out along with Python's time library and pick the one that performs best with your dataset.</p>
+</div>
+</article>
+</div>
+</div>
+</div>
+</section>
+<div class="mt-5"></div>
+</body>
+</html>

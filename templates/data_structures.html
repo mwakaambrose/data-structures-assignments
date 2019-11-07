@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Data Structures &amp Algorithms</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="/">Data Structures &amp Algorithms: Mwaka Ambrose</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/data-structures">Data Structures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sorting">Sorting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/searching">Searching</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ai">A.I</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Content -->
+    <section>
+        <div class="container mt-5 mb-5">
+            <h2>Data Structures Implementations In Python</h2>
+            <h3>Introduction</h3>
+            <p>Data structures organize storage in computers so that we can efficiently access and 
+            change data. Stacks and Queues are some of the earliest data structures defined in computer science.</p>
+            <p>Simple to learn and easy to implement, their uses are common and you'll most likely find yourself 
+            incorporating them in your software for various tasks.</p>
+            <p>It's common for Stacks and Queues to be implemented with an Array or Linked List. We'll be relying on the List data structure 
+            to accommodate both Stacks and Queues.</p>
+            <h2>How do they Work?</h2>
+            <h3>Arrays</h3>
+            <p>In python arrays are similar to Lists</p>
+            <pre class="code">
+            thislist = ["apple", "banana", "cherry"]
+            print(thislist)
+            # The output of the print
+            ["apple", "banana", "cherry"]
+            </pre>
+            <p>There are several helper functions thar are provided in the python standard library for manipulation it including sorting.</p>
+            <h3>Lists</h3>
+            <p>In python arrays are similar to Lists</p>
+            <pre class="code">
+            thislist = ["apple", "banana", "cherry"]
+            print(thislist)
+            # The output of the print
+            ["apple", "banana", "cherry"]
+            </pre>
+            <p>There are several helper functions thar are provided in the python standard library for manipulation it including sorting.</p>
+            <h3>LinkedLists</h3>
+            <p>Here’s how you implement a linked list in Python:</p>
+            <p>This is a node class.</p>
+            <pre class="code">
+            class Node:
+            def __init__(self,val):
+                self.val = val
+                self.next = None # the pointer initially points to nothing
+            </pre>
+            <p>Once you have the Node class, you can implement any linked list as follows:</p>
+            <pre class="code">
+            node1 = Node(12) 
+            node2 = Node(99) 
+            node3 = Node(37) node1.next = node2 # 12->99
+            node2.next = node3 # 99->37# the entire linked list now looks like: 12->99->37
+            </pre>
+            <p>Traversing the linked lists</p>
+            <pre class="code">
+            class Node:
+            ...
+            
+            def traverse(self):
+                node = self # start from the head node
+                while node != None:
+                    print node.val # access the node value
+                    node = node.next # move on to the next node
+            </pre>
+            <h3>Stack</h3>
+            <p>Stacks, like the name suggests, follow the Last-in-First-Out (LIFO) principle. As if stacking coins one on top of the other, the last coin we put on the top is the one that is the first to be removed from the stack later.</p>
+            <p>To implement a stack, therefore, we need two simple operations:</p>
+            <ul>
+                <li>push - adds an element to the top of the stack</li>
+                <li>pop - removes the element at the top of the stack</li>
+            </ul>
+            <pre class="code">
+            # A simple class stack that only allows pop and push operations
+            class Stack:
+            
+                def __init__(self):
+                    self.stack = []
+            
+                def pop(self):
+                    if len(self.stack) < 1:
+                        return None
+                    return self.stack.pop()
+            
+                def push(self, item):
+                    self.stack.append(item)
+            
+                def size(self):
+                    return len(self.stack)
+            </pre>
+            <h3>Queue</h3>
+            <p>Queues, like the name suggests, follow the First-in-First-Out (FIFO) principle. As if waiting in a queue for the movie tickets, the first one to stand in line is the first one to buy a ticket and enjoy the movie.</p>
+            <p>To implement a queue, therefore, we need two simple operations:</p>
+            <ul>
+                <li>enqueue - adds an element to the end of the queue</li>
+                <li>dequeue - removes the element at the beginning of the queue</li>
+            </ul>
+            <pre class="code">
+            # And a queue that only has enqueue and dequeue operations
+            class Queue:
+            
+                def __init__(self):
+                    self.queue = []
+            
+                def enqueue(self, item):
+                    self.queue.append(item)
+            
+                def dequeue(self):
+                    if len(self.queue) < 1:
+                        return None
+                    return self.queue.pop(0)
+            
+                def size(self):
+                    return len(self.queue) 
+            </pre>
+            <h3>Examples</h3>
+            <p>Imagine you're a developer working on a brand new word processor. You're tasked with creating an undo feature - allowing users to backtrack their actions till the beginning of the session.</p>
+            <p>A stack is an ideal fit for this scenario. We can record every action the user takes by pushing it to the stack. When the user wants to undo an action they'll pop it from the stack. We can quickly simulate the feature like this:</p>
+            <pre class="code">
+            document_actions = Stack()
+
+            # The first enters the title of the document
+            document_actions.push('action: enter; text_id: 1; text: This is my favourite document')
+            # Next they center the text
+            document_actions.push('action: format; text_id: 1; alignment: center')
+            # As with most writers, the user is unhappy with the first draft and undoes the center alignment
+            document_actions.pop()
+            # The title is better on the left with bold font
+            document_actions.push('action: format; text_id: 1; style: bold')
+            </pre>
+            <p>Queues have widespread uses in programming as well. Think of games like Street Fighter or Super Smash Brothers. Players in those games can perform special moves by pressing a combination of buttons. These button combinations can be stored in a queue.</p>
+            <p>Now imagine that you're a developer working on a new fighting game. In your game, every time a button is pressed, an input event is fired. A tester noticed that if buttons are pressed too quickly the game only processes the first one and special moves won't work!</p>
+            <p>You can fix that with a queue. We can enqueue all input events as they come in. This way it doesn't matter if input events come with little time between them, they'll all be stored and available for processing. When we're processing the moves we can dequeue them. A special move can be worked out like this:</p>
+            <pre class="code">
+            input_queue = Queue()
+
+            # The player wants to get the upper hand so pressing the right combination of buttons quickly
+            input_queue.enqueue('DOWN')
+            input_queue.enqueue('RIGHT')
+            input_queue.enqueue('B')
+            
+            # Now we can process each item in the queue by dequeueing them
+            key_pressed = input_queue.dequeue() # 'DOWN'
+            
+            # We'll probably change our player position
+            key_pressed = input_queue.dequeue() # 'RIGHT'
+            
+            # We'll change the player's position again and keep track of a potential special move to perform
+            key_pressed = input_queue.dequeue() # 'B'
+            
+            # This can do the act, but the game's logic will know to do the special move
+            </pre>
+            <h2>Conclusion</h2>
+            <p>Stacks and queues are simple data structures that allow us to store and retrieve data sequentially. In a stack, the last item we enter is the first to come out. In a queue, the first item we enter is the first come out.</p>
+            <p>We can add items to a stack using the push operation and retrieve items using the pop operation. With queues, we add items using the enqueue operation and retrieve items using the dequeue operation.</p>
+            <p>In Python, we can implement stacks and queues just by using the built-in List data structure. Python also has the deque library which can efficiently provide stack and queue operations in one object. Finally, we've made our stack and queue classes for tighter control of our data.</p>
+            <p class="mb-5">There are many real-world use cases for stacks and queues, understanding them allows us to solve many data storage problems in an easy and effective manner.</p>
+            <br>
+        </div>
+    </section>
+</body>
+</html>
+    
